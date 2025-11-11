@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Artwork Token | ArtTokenizer</title>
+
+  <style>
+    /* SAME THEME */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #f5e6d3, #b8a798);
+    }
+    .container {
+      max-width: 800px;
+      margin: 120px auto;
+      background: #ffffffcc;
+      padding: 35px 40px;
+      border-radius: 18px;
+      box-shadow: 0px 10px 30px rgba(184,124,76,0.2);
+    }
+    h2 { text-align: center; color: #A86B3F; }
+    .form-group { margin-bottom: 18px; }
+    label { font-weight: bold; }
+    input, select, textarea {
+      width: 100%; padding: 12px; border-radius: 10px;
+      border: 1px solid rgba(184,124,76,0.4);
+    }
+    textarea { height: 120px; }
+    .submit-btn {
+      width: 100%; padding: 14px; margin-top: 20px;
+      background: #A86B3F; color: white; font-weight: bold;
+      border: none; border-radius: 10px; cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <h2>Create Artwork Token</h2>
+
+    <form id="tokenForm" enctype="multipart/form-data">
+
+      <div class="form-group">
+        <label>Artwork Title *</label>
+        <input type="text" name="title" required>
+      </div>
+
+      <div class="form-group">
+        <label>Painting Medium *</label>
+        <select name="medium" required>
+          <option value="">Select medium</option>
+          <option>Acrylic</option>
+          <option>Oil</option>
+          <option>Watercolor</option>
+          <option>Gouache</option>
+          <option>Charcoal</option>
+          <option>Pastel</option>
+          <option>Pencil Sketch</option>
+          <option>Digital Painting</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Fabric / Surface *</label>
+        <select name="fabric" required>
+          <option value="">Select fabric</option>
+          <option>Canvas</option>
+          <option>Paper Sheet</option>
+          <option>Linen</option>
+          <option>Cotton</option>
+          <option>Wood Panel</option>
+          <option>Mixed Media Sheet</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Dimensions *</label>
+        <input type="text" name="dimensions" placeholder="24 x 36 inches" required>
+      </div>
+
+      <div class="form-group">
+        <label>Description *</label>
+        <textarea name="description" required></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>Upload Artwork Images *</label>
+        <input type="file" name="images" multiple required>
+      </div>
+
+      <button type="submit" class="submit-btn">Create Token</button>
+
+    </form>
+  </div>
+
+<script>
+document.getElementById("tokenForm").addEventListener("submit", async function (e) {
+  e.preventDefault();
+
+  let formData = new FormData(this);
+
+  // ✅ logged-in user email
+  const email = localStorage.getItem("userEmail");
+  formData.append("userEmail", email);
+
+  const res = await fetch("http://localhost:5000/api/art/create", {
+    method: "POST",
+    body: formData
+  });
+
+  const data = await res.json();
+
+  if (data.success) {
+    alert("✅ Artwork token created!");
+    window.location.href = "dashboard.html";
+  } else {
+    alert("❌ Error creating token: " + data.message);
+  }
+});
+</script>
+
+</body>
+</html>
