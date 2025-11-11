@@ -1,16 +1,17 @@
 import mongoose from "mongoose";
 
-const artSchema = new mongoose.Schema({
-  artistName: String,
-  artistEmail: String,
-  artworkTitle: String,
-  paintingType: String,
-  fabricType: String,
-  description: String,
-  yearCreated: Number,
-  dimensions: String,
-  imageUrl: String,
+const artworkSchema = new mongoose.Schema({
+  userEmail: { type: String, required: true },
+
+  title: { type: String, required: true },
+  medium: { type: String, required: true },
+  fabric: { type: String, required: true },
+  dimensions: { type: String, required: true },
+  description: { type: String, required: true },
+
+  images: [{ type: String }], // filenames stored
+
+  createdAt: { type: Date, default: Date.now }
 });
 
-const Art = mongoose.model("Art", artSchema);
-export default Art;
+export default mongoose.model("Artwork", artworkSchema);
