@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ArtTokenizer | Dashboard</title>
+  <title>ArtTokenizer | Home</title>
 
   <style>
-    /* SAME THEME AS INDEX.HTML */
+    /* SAME THEME AS DASHBOARD */
     body, html {
       margin: 0;
       padding: 0;
@@ -16,7 +16,7 @@
       color: #333;
       position: relative;
     }
-   
+
     body::before {
       content: '';
       position: fixed;
@@ -32,7 +32,7 @@
       z-index: 0;
     }
 
-    /* NAVBAR */
+    /* ✅ NAVBAR */
     .navbar {
       position: fixed;
       top: 0;
@@ -43,9 +43,10 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 12px 40px;
+      padding: 12px 30px;
       box-shadow: 0px 4px 20px rgba(184, 124, 76, 0.15);
       z-index: 1000;
+      box-sizing: border-box;
     }
 
     .logo {
@@ -53,34 +54,34 @@
       align-items: center;
       gap: 10px;
       font-weight: bold;
-      font-size: 1.2rem;
+      font-size: 1.3rem;
       color: #B87C4C;
     }
 
     .logo img {
-      height: 50px;
-      width: 50px;
+      height: 48px;
+      width: 48px;
       object-fit: contain;
     }
 
     .nav-buttons {
       display: flex;
-      gap: 15px;
-      flex-wrap: wrap;
+      gap: 12px;
+      flex-wrap: nowrap;
     }
 
-    /* BUTTON STYLE */
     .btn {
-      padding: 8px 18px;
+      padding: 8px 16px;
       border: none;
-      border-radius: 10px;
-      font-size: 0.95rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
       cursor: pointer;
       transition: all 0.3s ease;
-      box-shadow: 0px 3px 6px rgba(0,0,0,0.1);
-      font-weight: 500;
       background: linear-gradient(135deg, #B87C4C 0%, #A86B3F 100%);
       color: white;
+      font-weight: 500;
+      white-space: nowrap;
+      box-shadow: 0px 3px 6px rgba(0,0,0,0.1);
     }
 
     .btn:hover {
@@ -89,36 +90,20 @@
       box-shadow: 0px 5px 15px rgba(184,124,76,0.3);
     }
 
-    /* REST CONTENT EXACTLY SAME AS INDEX */
+    /* ✅ HERO SECTION */
     .content {
-      margin-top: 0;
       text-align: center;
-      padding: 0;
+      padding-top: 150px;
       min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding-top: 70px;
-    }
-
-    .hero-section {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
     }
 
     .hero-section h1 {
-      font-size: 3.5rem;
+      font-size: 3.8rem;
       margin-bottom: 20px;
       background: linear-gradient(135deg, #B87C4C 0%, #8B5E34 50%, #B87C4C 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       font-weight: 700;
-      letter-spacing: -1px;
     }
 
     .highlight {
@@ -140,29 +125,78 @@
     .feature-card {
       flex: 0 1 250px;
       background: linear-gradient(145deg, #fff1e6 0%, #ffe8d1 100%);
-      padding: 35px 25px;
+      padding: 30px 25px;
       border-radius: 25px;
       box-shadow: 0px 12px 35px rgba(184,124,76,0.25);
-      transition: 0.5s;
       border: 1px solid rgba(184,124,76,0.15);
     }
 
-    .how-it-works { padding: 80px 20px; background: #fdf8f3; }
-    .how-it-works h2 { font-size: 2.5rem; text-align: center; color: #B87C4C; }
+    /* ✅ PROCESS FLOW SECTION */
+    .how-it-works {
+      padding: 80px 20px;
+      background: #fdf8f3;
+      text-align: center;
+    }
+
+    .subtitle {
+      font-size: 1.1rem;
+      margin-top: -10px;
+      margin-bottom: 40px;
+      color: #555;
+    }
+
+    .process-container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .process-step {
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+      margin-bottom: 40px;
+      text-align: left;
+    }
+
+    .step-number {
+      font-size: 2rem;
+      font-weight: bold;
+      background: #B87C4C;
+      color: white;
+      width: 55px;
+      height: 55px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .step-content h3 {
+      margin: 0;
+      font-size: 1.3rem;
+      color: #A86B3F;
+    }
+
+    .step-content p {
+      margin-top: 8px;
+      line-height: 1.5;
+      color: #444;
+    }
 
     footer {
       text-align: center;
       padding: 120px 20px;
       background: linear-gradient(135deg, #B87C4C 0%, #A86B3F 100%);
       color: white;
+      margin-top: 40px;
     }
-
   </style>
 </head>
 
 <body>
 
-  <!-- UPDATED NAVBAR -->
+  <!-- ✅ NAVBAR (Login + Register) -->
   <header class="navbar">
     <div class="logo">
       <img src="logo.png" alt="ArtTokenizer Logo">
@@ -170,15 +204,13 @@
     </div>
 
     <div class="nav-buttons">
-      <button class="btn" onclick="window.location.href='create-token.html'">Create Token</button>
-      <button class="btn" onclick="window.location.href='my-tokens.html'">My Tokens</button>
-      <button class="btn" onclick="window.location.href='profile.html'">Profile</button>
-      <button class="btn" onclick="logout()">Logout</button>
+      <button class="btn" onclick="window.location.href='https://wallet.deso.com/'">Create DESO Wallet</button>
+      <button class="btn" onclick="window.location.href='login.html'">Login</button>
+      <button class="btn" onclick="window.location.href='register.html'">Register</button>
     </div>
   </header>
 
-  <!-- EXACT SAME MAIN CONTENT YOU PROVIDED -->
-  <!-- Main Content -->
+  <!-- ✅ HERO -->
   <main class="content">
     <div class="hero-section">
       <h1>Welcome to <span class="highlight">ArtLedger</span></h1>
@@ -201,12 +233,13 @@
     </div>
   </main>
 
-  <!-- How It Works Section -->
+  <!-- ✅ FLOWCHART (Same as Dashboard) -->
   <section class="how-it-works">
     <h2>How Token Creation Works</h2>
     <p class="subtitle">Transparent, secure, and simple - see exactly how your artwork becomes a blockchain asset</p>
-   
+
     <div class="process-container">
+
       <div class="process-step">
         <div class="step-number">1</div>
         <div class="step-content">
@@ -246,29 +279,14 @@
           <p>You receive a certificate with Token ID, address & QR code.</p>
         </div>
       </div>
+
     </div>
   </section>
 
-  <!-- Footer -->
   <footer>
     <p><strong>ArtTokenizer</strong> - Secure Asset Tokenization</p>
     <p>© 2025 All Rights Reserved</p>
-
-    <div class="footer-links">
-      <a href="#">About Us</a>
-      <a href="#">Contact</a>
-      <a href="#">Privacy Policy</a>
-      <a href="#">Terms of Service</a>
-    </div>
   </footer>
-
-  <script>
-    function logout() {
-      localStorage.removeItem("user");
-      alert("Logged out successfully!");
-      window.location.href = "login.html";
-    }
-  </script>
 
 </body>
 </html>
