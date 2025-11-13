@@ -15,3 +15,4 @@ const artworkSchema = new mongoose.Schema({
 });
 
 export default mongoose.model("Artwork", artworkSchema);
+
