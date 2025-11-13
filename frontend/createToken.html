@@ -98,13 +98,17 @@
   </div>
 
 <script>
-document.getElementById("tokenForm").addEventListener("submit", async function (e) {
+document.getElementById("tokenForm").addEventListener("submit", async function(e){
   e.preventDefault();
 
   let formData = new FormData(this);
 
-  // ✅ logged-in user email
   const email = localStorage.getItem("userEmail");
+  if(!email){
+    alert("⚠️ User not logged in!");
+    window.location.href = "login.html";
+    return;
+  }
   formData.append("userEmail", email);
 
   const res = await fetch("http://localhost:5000/api/art/create", {
@@ -114,11 +118,11 @@ document.getElementById("tokenForm").addEventListener("submit", async function (
 
   const data = await res.json();
 
-  if (data.success) {
+  if(data.success){
     alert("✅ Artwork token created!");
     window.location.href = "dashboard.html";
   } else {
-    alert("❌ Error creating token: " + data.message);
+    alert("❌ Error: " + data.message);
   }
 });
 </script>
