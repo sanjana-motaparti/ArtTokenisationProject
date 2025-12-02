@@ -5,59 +5,39 @@ import cors from "cors";
 import path from "path";
 import fs from "fs";
 
-import artRoutes from "./routes/artRoutes.js";
-import authRoutes from "./routes/authRoutes.js";
+import artworkRoutes from "./routes/artwork.js";
 
 dotenv.config();
+
 const app = express();
 
-/* ---------------------------------------
- ✅ Middleware
----------------------------------------- */
+/* Middleware */
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-// Serve uploaded images statically
-//app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
-/* ---------------------------------------
- ✅ MongoDB Connection
----------------------------------------- */
-mongoose
-  .connect(process.env.MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .then(() => console.log("✅ MongoDB Connected"))
+/* MongoDB Connection */
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => console.log("✅ Connected to MongoDB"))
   .catch((err) => console.error("❌ MongoDB Connection Error:", err));
 
-/* ---------------------------------------
- ✅ Ensure Upload Folder Exists
----------------------------------------- */
+/* Ensure uploads folder exists */
 const uploadDir = "uploads";
-if (!fs.existsSync(uploadDir)) {
-  fs.mkdirSync(uploadDir);
-  console.log("📂 Created uploads/ folder");
-}
+if (!fs.existsSync(uploadDir)) fs.mkdirSync(uploadDir);
 
-/* ---------------------------------------
- ✅ API Routes
----------------------------------------- */
-app.use("/api/auth", authRoutes);
-app.use("/api/art", artRoutes);
-
-/* ---------------------------------------
- ✅ Serve Frontend (HTML/CSS/JS)
----------------------------------------- */
+/* Serve uploads */
 const __dirname = path.resolve();
-app.use(express.static(path.join(__dirname, "../frontend")));
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
+/* API Routes */
+app.use("/api/artwork", artworkRoutes);
+
+/* Serve frontend */
+app.use(express.static(path.join(__dirname, "../frontend")));
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "../frontend/index.html"));
+  res.sendFile(path.join(__dirname, "../frontend/createToken.html"));
 });
 
-/* ---------------------------------------
- ✅ Start Server
----------------------------------------- */
+/* Start server */
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
