@@ -1,128 +1,219 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Create Artwork Token | ArtTokenizer</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Create Token | ArtTokenizer</title>
 
-  <style>
-    /* SAME THEME */
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(135deg, #f5e6d3, #b8a798);
+<style>
+  body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #f5e6d3 0%, #e8d4c1 25%, #d4c4b0 50%, #c9b9a8 75%, #b8a798 100%);
+    background-attachment: fixed;
+    color: #333;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-image:
+      radial-gradient(circle at 20% 30%, rgba(184,124,76,0.1) 0%, transparent 50%),
+      radial-gradient(circle at 80% 70%, rgba(168,187,163,0.1) 0%, transparent 50%),
+      radial-gradient(circle at 50% 50%, rgba(235,217,209,0.2) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Header */
+  .navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: rgba(247,244,234,0.95);
+    backdrop-filter: blur(10px);
+    padding: 12px 40px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0px 4px 20px rgba(184, 124, 76, 0.15);
+    z-index: 1000;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: #B87C4C;
+  }
+
+  .logo img {
+    height: 50px;
+    margin-right: 10px;
+  }
+
+  /* Form Container */
+  .form-container {
+    margin: 130px auto 50px;
+    max-width: 550px;
+    background: white;
+    padding: 40px 35px;
+    border-radius: 20px;
+    box-shadow: 0px 8px 25px rgba(184,124,76,0.2);
+    border: 2px solid rgba(184,124,76,0.25);
+  }
+
+  h2 {
+    text-align: center;
+    color: #B87C4C;
+    font-size: 2rem;
+    margin-bottom: 25px;
+  }
+
+  label {
+    font-weight: 500;
+    color: #555;
+    display: block;
+    margin-bottom: 6px;
+  }
+
+  input, textarea, select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid rgba(184,124,76,0.3);
+    border-radius: 10px;
+    font-size: 1rem;
+    background: rgba(255,255,255,0.9);
+    margin-bottom: 18px;
+    transition: 0.3s ease;
+  }
+
+  input:focus, textarea:focus, select:focus {
+    border-color: #B87C4C;
+    background: white;
+    outline: none;
+  }
+
+  textarea {
+    resize: none;
+    height: 100px;
+  }
+
+  button {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(135deg, #B87C4C 0%, #A86B3F 100%);
+    border: none;
+    color: white;
+    font-size: 1.1rem;
+    border-radius: 12px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: 0.3s ease;
+    font-weight: 600;
+  }
+
+  button:hover {
+    background: linear-gradient(135deg, #A86B3F 0%, #8B5E34 100%);
+    transform: translateY(-2px);
+    box-shadow: 0px 5px 15px rgba(184,124,76,0.3);
+  }
+
+  @media(max-width: 480px) {
+    .form-container {
+      margin: 140px 20px;
+      padding: 30px;
     }
-    .container {
-      max-width: 800px;
-      margin: 120px auto;
-      background: #ffffffcc;
-      padding: 35px 40px;
-      border-radius: 18px;
-      box-shadow: 0px 10px 30px rgba(184,124,76,0.2);
-    }
-    h2 { text-align: center; color: #A86B3F; }
-    .form-group { margin-bottom: 18px; }
-    label { font-weight: bold; }
-    input, select, textarea {
-      width: 100%; padding: 12px; border-radius: 10px;
-      border: 1px solid rgba(184,124,76,0.4);
-    }
-    textarea { height: 120px; }
-    .submit-btn {
-      width: 100%; padding: 14px; margin-top: 20px;
-      background: #A86B3F; color: white; font-weight: bold;
-      border: none; border-radius: 10px; cursor: pointer;
-    }
-  </style>
+  }
+</style>
 </head>
 
 <body>
 
-  <div class="container">
-    <h2>Create Artwork Token</h2>
-
-    <form id="tokenForm" enctype="multipart/form-data">
-
-      <div class="form-group">
-        <label>Artwork Title *</label>
-        <input type="text" name="title" required>
-      </div>
-
-      <div class="form-group">
-        <label>Painting Medium *</label>
-        <select name="medium" required>
-          <option value="">Select medium</option>
-          <option>Acrylic</option>
-          <option>Oil</option>
-          <option>Watercolor</option>
-          <option>Gouache</option>
-          <option>Charcoal</option>
-          <option>Pastel</option>
-          <option>Pencil Sketch</option>
-          <option>Digital Painting</option>
-        </select>
-      </div>
-
-      <div class="form-group">
-        <label>Fabric / Surface *</label>
-        <select name="fabric" required>
-          <option value="">Select fabric</option>
-          <option>Canvas</option>
-          <option>Paper Sheet</option>
-          <option>Linen</option>
-          <option>Cotton</option>
-          <option>Wood Panel</option>
-          <option>Mixed Media Sheet</option>
-        </select>
-      </div>
-
-      <div class="form-group">
-        <label>Dimensions *</label>
-        <input type="text" name="dimensions" placeholder="24 x 36 inches" required>
-      </div>
-
-      <div class="form-group">
-        <label>Description *</label>
-        <textarea name="description" required></textarea>
-      </div>
-
-      <div class="form-group">
-        <label>Upload Artwork Images *</label>
-        <input type="file" name="images" multiple required>
-      </div>
-
-      <button type="submit" class="submit-btn">Create Token</button>
-
-    </form>
+<header class="navbar">
+  <div class="logo">
+    <img src="logo.png" alt="Logo">
+    ArtTokenizer
   </div>
+</header>
+
+<div class="form-container">
+  <h2>Create Artwork Token</h2>
+
+  <form id="createTokenForm" enctype="multipart/form-data">
+    <label for="email">Your Email:</label>
+    <input type="email" id="email" name="userEmail" required>
+   <label for="publicKey">DeSo Public Key:</label>
+<input type="text" id="publicKey" name="desoPublicKey" required />
+
+    <label for="title">Artwork Title:</label>
+    <input type="text" id="title" name="title" required>
+
+    <label for="medium">Painting Medium:</label>
+    <select id="medium" name="medium" required>
+      <option value="">-- Select Medium --</option>
+      <option value="Oil">Oil</option>
+      <option value="Acrylic">Acrylic</option>
+      <option value="Watercolor">Watercolor</option>
+      <option value="Gouache">Gouache</option>
+      <option value="Ink">Ink</option>
+      <option value="Digital">Digital</option>
+      <option value="Mixed Media">Mixed Media</option>
+      <option value="Pastel">Pastel</option>
+    </select>
+
+    <label for="fabric">Painting Fabric:</label>
+    <select id="fabric" name="fabric" required>
+      <option value="">-- Select Fabric --</option>
+      <option value="Canvas">Canvas</option>
+      <option value="Paper">Paper</option>
+      <option value="Wood">Wood</option>
+      <option value="Cloth">Cloth</option>
+      <option value="Board">Board</option>
+      <option value="Digital Surface">Digital Surface</option>
+      <option value="Other">Other</option>
+    </select>
+
+    <label for="dimensions">Dimensions:</label>
+    <input type="text" id="dimensions" name="dimensions" placeholder="e.g. 24 x 36 inches" required>
+
+    <label for="description">Description:</label>
+    <textarea id="description" name="description" required></textarea>
+
+    <label for="image">Upload Artwork Image:</label>
+    <input type="file" id="image" name="image" accept="image/*" required>
+
+    <button type="submit">Create Token</button>
+  </form>
+</div>
 
 <script>
-document.getElementById("tokenForm").addEventListener("submit", async function(e){
+document.getElementById("createTokenForm").addEventListener("submit", async (e) => {
   e.preventDefault();
+  const formData = new FormData();
+  formData.append("userEmail", document.getElementById("email").value);
+  formData.append("desoPublicKey", document.getElementById("publicKey").value);
+  formData.append("title", document.getElementById("title").value);
+  formData.append("medium", document.getElementById("medium").value);
+  formData.append("fabric", document.getElementById("fabric").value);
+  formData.append("dimensions", document.getElementById("dimensions").value);
+  formData.append("description", document.getElementById("description").value);
+  formData.append("image", document.getElementById("image").files[0]);
 
-  let formData = new FormData(this);
-
-  const email = localStorage.getItem("userEmail");
-  if(!email){
-    alert("⚠️ User not logged in!");
-    window.location.href = "login.html";
-    return;
-  }
-  formData.append("userEmail", email);
-
-  const res = await fetch("http://localhost:5000/api/art/create", {
-    method: "POST",
-    body: formData
-  });
-
-  const data = await res.json();
-
-  if(data.success){
-    alert("✅ Artwork token created!");
-    window.location.href = "dashboard.html";
-  } else {
-    alert("❌ Error: " + data.message);
+  try {
+    const response = await fetch("/api/artwork/create-token", {
+      method: "POST",
+      body: formData,
+    });
+    const result = await response.json();
+    if(result.success) alert(`✅ Artwork saved! Hash: ${result.hash}`);
+    else alert("❌ " + result.message);
+  } catch(err) {
+    console.error(err);
+    alert("⚠️ Error saving artwork");
   }
 });
 </script>
