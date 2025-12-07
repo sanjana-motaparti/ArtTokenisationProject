@@ -6,6 +6,7 @@ import path from "path";
 import fs from "fs";
 
 import artworkRoutes from "./routes/artwork.js";
+import authRoutes from "./routes/authRoutes.js";   // ✅ Added
 
 dotenv.config();
 
@@ -25,15 +26,18 @@ mongoose.connect(process.env.MONGO_URI)
 const uploadDir = "uploads";
 if (!fs.existsSync(uploadDir)) fs.mkdirSync(uploadDir);
 
-/* Serve uploads */
 const __dirname = path.resolve();
+
+/* Serve uploads */
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 /* API Routes */
 app.use("/api/artwork", artworkRoutes);
+app.use("/api/auth", authRoutes);   // ✅ Auth API added
 
 /* Serve frontend */
 app.use(express.static(path.join(__dirname, "../frontend")));
+
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "../frontend/createToken.html"));
 });
