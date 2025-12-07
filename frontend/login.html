@@ -191,7 +191,6 @@
 </div>
 
 <script>
-  // Handle login form submit
   document.getElementById("loginForm").addEventListener("submit", async function(event) {
     event.preventDefault();
 
@@ -200,11 +199,9 @@
 
     try {
       const response = await fetch("http://localhost:5000/api/auth/login", {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({ email, password })
-});
-
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password })
       });
 
       const data = await response.json();
@@ -219,6 +216,7 @@
     }
   });
 </script>
+
 
 </body>
 </html>
